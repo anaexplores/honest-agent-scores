@@ -1,10 +1,11 @@
 """Reproduce every result in results/ from the data.
 
     python reproduce.py                 # fetch TB 4.0 trials if missing, then run all analyses into results/
-    python reproduce.py --quick         # skip the slow TB 2.0 runs (Q5 on 63 configurations, slope sensitivity)
+    python reproduce.py --quick         # skip the slow TB 2.0 runs (Q5 on 60 configurations, slope sensitivity, task-removal control)
     python reproduce.py --compare DIR   # also compare the new outputs with the JSON files in DIR
 
-Runtime on a laptop: about 5 minutes for TB 4.0 analyses, plus about 40 minutes for the TB 2.0 runs.
+Runtime on a laptop: about 5 minutes for TB 4.0 analyses, plus about 3 hours for the TB 2.0 runs
+(most of it the task-removal control, which uses 4 processes; set --workers in that script to change it).
 Only the Python standard library is needed (3.9+).
 """
 import argparse
@@ -63,6 +64,8 @@ def main():
         run(['q5_icc_heterogeneity.py', '--trials', tb20q5, '--out', o('q5_icc_tb20.json')], a.out)
         run(['q5b_icc_residual.py', '--trials', tb20q5, '--out', o('q5b_residual_tb20.json')], a.out)
         run(['icc_slope_sensitivity.py', '--tb40', tb40, '--tb20', tb20, '--tb21-changed', changed, '--out', o('icc_slope_sensitivity.json')], a.out)
+        run(['q5_task_removal_control.py', '--tb20', tb20, '--tb21-changed', changed, '--out', o('q5_task_removal_control.json')], a.out)
+        run(['q5_task_removal_matched.py', '--tb20', tb20, '--tb21-changed', changed, '--out', o('q5_task_removal_matched.json')], a.out)
     if a.compare:
         sys.exit(0 if compare(a.out, a.compare) else 1)
 

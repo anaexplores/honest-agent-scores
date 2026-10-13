@@ -1,6 +1,6 @@
 # Honest agent scores
 
-**Do benchmark defects or repeated runs change which AI agent wins?** On 3,300 public Terminal-Bench 4.0 runs, mostly no: neither removing known defective tasks nor ranking by reliability on repeats (pass^k) changes the leader beyond noise. But broken tasks do create false reliability differences between agents, and a 66-task benchmark cannot resolve differences smaller than about 10 points.
+**Do benchmark defects or repeated runs change which AI agent wins?** On 3,300 public Terminal-Bench 4.0 runs, mostly no: neither removing known defective tasks nor ranking by reliability on repeats (pass^k) changes the leader beyond noise. How correlated an agent's repeats are (ICC) does differ between configurations on Terminal-Bench 2.0, but much of that difference sits in the 28 tasks the benchmark later changed, and whether that is because they were broken or merely hard is open. A 66-task benchmark cannot resolve differences smaller than about 10 points.
 
 This repository is a reproducible check of two common claims in **AI agent evaluation** on public per-trial results from **Terminal-Bench**: that **benchmark defects** hide the true leader, and that measuring **reliability** with **pass^k** reorders agents. It also ships a small tool to run the same checks on your own leaderboard, and a table of how many tasks a benchmark needs to tell two agents apart. The result is negative and stated with its limitations.
 
@@ -12,7 +12,7 @@ This repository is a reproducible check of two common claims in **AI agent evalu
 | Q2 | Do the defects inflate the repeat correlation (ICC)? | TB 4.0 | Median ICC 0.522 -> 0.532 (null range of the change [-0.072, +0.067]). A drop larger than about 0.07 is ruled out. |
 | Q3 | Who benefits from false positives? | TB 4.0 | All configurations do **worse** on false-positive tasks: those tasks are harder. Exploitation is not ruled out; it would need trajectories. |
 | Q4 | Does ranking by pass^5 differ from ranking by pass@1? | TB 4.0 | **No**: four pairs reverse, none significantly. pass^5 / pass@1 ranges from 0.10 to 0.72 across configurations. |
-| Q5 | Do agents differ in how correlated their repeats are (ICC) beyond noise? | TB 4.0; TB 2.0 (63 configurations x 88 tasks) | TB 4.0 p = 0.075. TB 2.0 p = 0.0014, **but** p = 0.30 once the 27 tasks fixed in TB 2.1 and the weakest configurations are removed: **broken tasks create false reliability differences.** |
+| Q5 | Do agents differ in how correlated their repeats are (ICC) beyond noise? | TB 4.0; TB 2.0 (60 configurations x 89 tasks; corrected 2026-10-13) | TB 4.0 p = 0.075. TB 2.0 **p = 0.0022: yes by the plan**, robust to trial choice, selection rule and dropping the weakest configurations. It weakens without the 28 tasks changed in TB 2.1 (p = 0.047; 0.25 if the weakest configurations are also dropped, one of four post-hoc combinations). Those tasks are also much harder than random ones, so "broken tasks create false reliability differences" remains a **hypothesis**. |
 | Power | How large a difference can a benchmark resolve? | TB 4.0 pairs | With 66 tasks, pass@1 differences within about **+-9.5 points** are ties; about 500 tasks are needed to resolve 5 points (table below). |
 
 Exploratory results (chosen after seeing the data) are reported separately in [docs/RESULTS.md](docs/RESULTS.md), including one candidate pair whose order flips without the defective tasks (Fable 5.1 vs GPT-6 Sol, paired shift -12.4 points, 95% CI [-21.9, -3.8], no multiplicity correction).
@@ -52,7 +52,7 @@ Only the Python 3.9+ standard library is needed.
 
 ```bash
 python reproduce.py --quick   # TB 4.0 analyses, about 5 minutes (downloads the TB 4.0 trials first)
-python reproduce.py           # everything, including TB 2.0, about 45 minutes
+python reproduce.py           # everything, including TB 2.0, about 3 hours
 ```
 
 `reproduce.py` first downloads the Terminal-Bench 4.0 trials from Harbor Hub (`scripts/fetch_tb40_trials.py`) and checks them against the SHA-256 in `data/tb40_submissions.json`; then it writes every file in `results/`. All random draws use fixed seeds. The TB 4.0 trials are not included in this repository because their license is unclear; see [DATA.md](DATA.md).
@@ -66,6 +66,9 @@ python reproduce.py           # everything, including TB 2.0, about 45 minutes
 | `scripts/prep_tb20.py` | `data/tb20_trials.csv` | `data/tb20_q5_trials.csv` | Q5 data |
 | `scripts/q5b_icc_residual.py` | TB 4.0 / TB 2.0 trials | `results/q5b_residual_*.json` | Q5b (exploratory) |
 | `scripts/icc_slope_sensitivity.py` | TB 4.0, TB 2.0 trials, `data/tb21_changed_tasks.json` | `results/icc_slope_sensitivity.json` | Q5 robustness, ICC slope |
+| `scripts/q5_task_removal_control.py` | TB 2.0 trials, `data/tb21_changed_tasks.json` | `results/q5_task_removal_control.json` | Q5 control: changed vs random tasks removed (exploratory) |
+| `scripts/q5_task_removal_matched.py` | TB 2.0 trials, `data/tb21_changed_tasks.json` | `results/q5_task_removal_matched.json` | Q5 control: changed vs difficulty-matched tasks removed (exploratory) |
+| `scripts/fetch_tb20_trials.py` | Hugging Face | `data/tb20_trials.csv` | data (included; re-download is optional) |
 | `scripts/exploratory_checks.py` | TB 4.0 trials, defects | `results/exploratory_checks.json` | exploratory |
 | `scripts/power_table.py` | TB 4.0 trials | `results/power_table.json` | power |
 | `scripts/check_leaderboard.py` | any trials CSV | `report/` | your data |
@@ -83,7 +86,7 @@ python reproduce.py           # everything, including TB 2.0, about 45 minutes
 
 ## Related
 
-- [Agent Reliability Calculator](https://github.com/anaexplores/agent-reliability-calculator) ([demo](https://anaexplores.github.io/agent-reliability-calculator/)) estimates how many retries an agent pipeline needs when retries are correlated. This study supports its constant ICC preset of about 0.5-0.6: the dependence of ICC on pass@1 is weak and unstable (slope from 0.15 to 0.41 depending on broken tasks and weak configurations), so the calculator should not model ICC as a function of pass@1.
+- [Agent Reliability Calculator](https://github.com/anaexplores/agent-reliability-calculator) ([demo](https://anaexplores.github.io/agent-reliability-calculator/)) estimates how many retries an agent pipeline needs when retries are correlated. This study supports its constant ICC preset of about 0.5-0.6: ICC rises with pass@1, but the size of that dependence is unstable (slope from 0.12 to 0.43 depending on the changed tasks and weak configurations), so the calculator should not model ICC as a function of pass@1.
 
 ## License
 

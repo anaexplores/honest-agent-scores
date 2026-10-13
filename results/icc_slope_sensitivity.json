@@ -33,130 +33,162 @@
  },
  "TB2.0 first5": {
   "pass1>=0.0": {
-   "n": 63,
-   "n_tasks": 88,
-   "intercept": 0.409,
-   "slope": 0.406,
+   "n": 60,
+   "n_tasks": 89,
+   "intercept": 0.404,
+   "slope": 0.418,
    "slope_ci_by_configs": [
-    0.259,
-    0.543
+    0.277,
+    0.554
    ],
    "slope_ci_by_tasks": [
-    0.26,
-    0.563
+    0.259,
+    0.587
    ],
-   "q5_p": 0.001
+   "q5_p": 0.0025
   },
   "pass1>=0.1": {
-   "n": 60,
-   "n_tasks": 88,
+   "n": 57,
+   "n_tasks": 89,
    "intercept": 0.468,
-   "slope": 0.296,
+   "slope": 0.3,
    "slope_ci_by_configs": [
-    0.193,
-    0.388
+    0.199,
+    0.392
    ],
    "slope_ci_by_tasks": [
-    0.122,
-    0.517
+    0.116,
+    0.466
    ],
-   "q5_p": 0.0
+   "q5_p": 0.0005
   }
  },
  "TB2.0 first5 without tasks changed in 2.1": {
   "pass1>=0.0": {
-   "n": 63,
-   "n_tasks": 61,
-   "intercept": 0.43,
-   "slope": 0.25,
-   "slope_ci_by_configs": [
-    0.105,
-    0.383
-   ],
-   "slope_ci_by_tasks": [
-    0.074,
-    0.423
-   ],
-   "q5_p": 0.05
-  },
-  "pass1>=0.1": {
    "n": 60,
    "n_tasks": 61,
-   "intercept": 0.494,
-   "slope": 0.145,
+   "intercept": 0.431,
+   "slope": 0.238,
    "slope_ci_by_configs": [
-    0.043,
-    0.239
+    0.093,
+    0.372
    ],
    "slope_ci_by_tasks": [
-    -0.055,
-    0.316
+    0.065,
+    0.398
    ],
-   "q5_p": 0.3005
+   "q5_p": 0.047
+  },
+  "pass1>=0.1": {
+   "n": 57,
+   "n_tasks": 61,
+   "intercept": 0.503,
+   "slope": 0.123,
+   "slope_ci_by_configs": [
+    0.01,
+    0.228
+   ],
+   "slope_ci_by_tasks": [
+    -0.095,
+    0.3
+   ],
+   "q5_p": 0.249
   }
  },
  "TB2.0 random5 seed1": {
   "pass1>=0.0": {
-   "n": 63,
-   "n_tasks": 88,
-   "intercept": 0.439,
-   "slope": 0.356,
+   "n": 60,
+   "n_tasks": 89,
+   "intercept": 0.403,
+   "slope": 0.42,
    "slope_ci_by_configs": [
-    0.221,
-    0.461
+    0.278,
+    0.555
    ],
    "slope_ci_by_tasks": [
-    0.21,
-    0.535
+    0.261,
+    0.591
    ],
-   "q5_p": 0.0055
+   "q5_p": 0.002
   },
   "pass1>=0.1": {
-   "n": 60,
-   "n_tasks": 88,
-   "intercept": 0.492,
-   "slope": 0.257,
+   "n": 57,
+   "n_tasks": 89,
+   "intercept": 0.467,
+   "slope": 0.303,
    "slope_ci_by_configs": [
-    0.148,
-    0.362
+    0.201,
+    0.395
    ],
    "slope_ci_by_tasks": [
-    0.09,
-    0.465
+    0.122,
+    0.471
    ],
-   "q5_p": 0.0005
+   "q5_p": 0.0
   }
  },
  "TB2.0 random5 seed2": {
   "pass1>=0.0": {
-   "n": 63,
-   "n_tasks": 88,
-   "intercept": 0.437,
-   "slope": 0.36,
+   "n": 60,
+   "n_tasks": 89,
+   "intercept": 0.402,
+   "slope": 0.421,
    "slope_ci_by_configs": [
-    0.212,
-    0.479
+    0.279,
+    0.555
    ],
    "slope_ci_by_tasks": [
-    0.209,
-    0.537
+    0.262,
+    0.59
    ],
-   "q5_p": 0.008
+   "q5_p": 0.002
   },
   "pass1>=0.1": {
-   "n": 60,
-   "n_tasks": 88,
-   "intercept": 0.5,
-   "slope": 0.243,
+   "n": 57,
+   "n_tasks": 89,
+   "intercept": 0.466,
+   "slope": 0.303,
    "slope_ci_by_configs": [
-    0.133,
-    0.347
+    0.203,
+    0.395
    ],
    "slope_ci_by_tasks": [
-    0.074,
-    0.463
+    0.119,
+    0.467
    ],
-   "q5_p": 0.0005
+   "q5_p": 0.0
+  }
+ },
+ "TB2.0 first5 relaxed selection (>= 88 tasks)": {
+  "pass1>=0.0": {
+   "n": 75,
+   "n_tasks": 78,
+   "intercept": 0.386,
+   "slope": 0.425,
+   "slope_ci_by_configs": [
+    0.3,
+    0.548
+   ],
+   "slope_ci_by_tasks": [
+    0.241,
+    0.588
+   ],
+   "q5_p": 0.0
+  },
+  "pass1>=0.1": {
+   "n": 72,
+   "n_tasks": 78,
+   "intercept": 0.433,
+   "slope": 0.342,
+   "slope_ci_by_configs": [
+    0.235,
+    0.449
+   ],
+   "slope_ci_by_tasks": [
+    0.141,
+    0.507
+   ],
+   "q5_p": 0.0
   }
  }
 }

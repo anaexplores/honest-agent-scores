@@ -43,34 +43,51 @@ The rankings by pass^5 and by pass@1 nearly coincide; four pairs reverse, none s
 - **Exploratory:** Fable 5.1 and GPT-6.1 Sol are equal on pass@1 (0.579 vs 0.582) but differ on pass^5 (0.29 vs 0.39): -10.6 points, 95% CI [-22.7, +1.5], not significant. The planned criterion (reversed order) did not cover this "equal pass@1" case; that is a weakness of the design, noted by the internal review.
 - The units compared are model x harness x effort configurations (claude-code, codex, mini-swe-agent, muse-code), not models.
 
-## Q5. Does the repeat correlation differ between configurations beyond noise? (`results/q5_icc_*.json`, `results/icc_slope_sensitivity.json`)
+## Q5. Does the repeat correlation differ between configurations beyond noise? (`results/q5_icc_*.json`, `results/icc_slope_sensitivity.json`, `results/q5_task_removal_control.json`)
 
 Null: each configuration keeps its own pass@1, one common ICC, beta-binomial trials.
 
-| Data | Configurations | p (main test) |
-|---|---|---|
-| TB 4.0 | 10 | 0.075 |
-| TB 2.0, first 5 trials | 63 | **0.0014** |
-| TB 2.0, 5 random trials (seed 1 / 2) | 63 | 0.0055 / 0.008 |
-| TB 2.0 without the 27 tasks changed in 2.1 | 63 | 0.05 |
-| same, without configurations at pass@1 < 0.1 | 60 | **0.30** |
+**Correction (2026-10-13).** The first published TB 2.0 numbers came from a defective download (wrong pages for 1,700 rows, and trials that the source lists twice; see [DATA.md](../DATA.md)). Every TB 2.0 number below is recomputed on the corrected data. The selection rule of the analysis plan (5 trials on all 89 tasks) now applies as written: 60 configurations x 89 tasks (previously 63 x 88 under a relaxed rule that the download error had forced; see [ANALYSIS_PLAN.md](ANALYSIS_PLAN.md)).
 
-- Note on the random-trial rows: the original run sampled tasks in hash-set order, which Python randomises between runs, so those two rows were not reproducible (the original values were 0.0025 / 0.008). The published code samples tasks in sorted order and gives the values above in every run. The conclusion is the same.
-- By the letter of the plan, Q5 is supported (TB 2.0, p = 0.0014). **In substance it is not:** the differences rest on defective TB 2.0 tasks and the weakest configurations. On the fixed tasks without weak configurations, no ICC differences between configurations are visible. The internal review also noted that the null "ICC is constant at every pass@1" is false by construction, so a small p alone says only "ICC is not constant".
-- **Side finding** (data: computed; mechanism: hypothesis): broken tasks **create false "reliability differences" between configurations**, because different agents pass or fail a defective task deterministically in different ways. Tasks should be audited before any claim that one agent is more reliable than another.
+| Data | Configurations x tasks | p | Was (defective data) |
+|---|---|---|---|
+| TB 4.0 | 10 x 66 | 0.075 | 0.075 |
+| TB 2.0, first 5 trials (**main test**) | 60 x 89 | **0.0022** | 0.0014 |
+| same, median as the common ICC | 60 x 89 | 0.0016 | 0.0018 |
+| same, without configurations at pass@1 < 0.13 | 57 x 89 | < 0.0002 (0 of 5,000) | < 0.0002 |
+| TB 2.0, 5 random trials (seed 1 / 2) | 60 x 89 | 0.002 / 0.002 | 0.0055 / 0.008 |
+| TB 2.0, relaxed selection (>= 88 tasks) | 75 x 78 | < 0.0005 (0 of 2,000) | - |
+| TB 2.0 without the 28 tasks changed in 2.1 | 60 x 61 | 0.047 | 0.05 (27 tasks) |
+| same, without configurations at pass@1 < 0.1 | 57 x 61 | 0.25 | 0.30 |
+
+The main test and its two robustness checks were planned and use 5,000 simulations; the other TB 2.0 rows were added after the first result was seen and use 2,000. The old "random trials" rows were biased: in 11 configurations the duplicated trials made "5 random trials" partly the same trial twice.
+
+- **By the plan, Q5 is supported** on TB 2.0 (p = 0.0022), and the result holds for the choice of trials, the selection rule, the centre of the null and removing the weakest configurations (without them the differences are stronger, not weaker).
+- **It weakens only when the 28 tasks changed in TB 2.1 are removed**: p = 0.047 with all configurations and 0.25 when the weak configurations are also removed. This 0.25 is one of four combinations chosen after the fact (all tasks or without changed tasks, x all configurations or without weak ones); the other three give p <= 0.047.
+- **It does not show that ICC is the same for every configuration on that subset.** On the same 57 x 61 subset the ICC still rises with pass@1 (slope 0.12, 95% CI over configurations [0.01, 0.23]; over tasks [-0.10, 0.30]). The test there is inconclusive, not negative. The null "ICC is constant at every pass@1" is also false by construction (ICC rises with pass@1), so a small p alone says only "ICC is not constant".
+- **Control for power (exploratory, `scripts/q5_task_removal_control.py`).** Removing tasks lowers the power of the test, so removing 28 random tasks (200 draws, 1,000 simulations each) was compared with removing the 28 changed tasks (also with 1,000 simulations, hence 0.055 here against 0.047 in the table above):
+
+| Configurations | p, changed tasks removed | p, random 28 removed: median [5%, 95%] | Random removals with p at least as large |
+|---|---|---|---|
+| all (60) | 0.055 | 0.013 [0.001, 0.065] | 9.5% |
+| without pass@1 < 0.1 (57) | 0.229 | 0.009 [0.000, 0.169] | 3.5% |
+
+  Removing the changed tasks weakens the differences more than removing most random sets of tasks, so these tasks carry much of the ICC heterogeneity. But they are also much **harder** than a random set (pooled success 0.29, against 0.39-0.52 for 90% of random sets), and no random draw matched their difficulty. Whether the effect comes from the tasks being broken or from their being hard cannot be told apart with these data.
+- **Hypothesis, not a finding:** broken tasks may create false "reliability differences" between configurations, because different agents pass or fail a defective task deterministically in different ways. A difficulty-matched control would be needed to test it. Auditing tasks before claiming that one agent is more reliable than another remains a sensible precaution.
 
 **Slope of ICC on pass@1** (bootstrap over configurations and over tasks):
 
 | Data | Slope | CI over configurations | CI over tasks |
 |---|---|---|---|
 | TB 4.0 | 0.38 | [0.14, 0.64] | [0.11, 0.71] |
-| TB 2.0, all | 0.41 | [0.26, 0.54] | [0.26, 0.56] |
-| TB 2.0 without pass@1 < 0.1 | 0.30 | [0.19, 0.39] | [0.12, 0.52] |
-| TB 2.0 without changed tasks | 0.25 | [0.11, 0.38] | [0.07, 0.42] |
-| TB 2.0 without changed tasks and weak configurations | 0.15 | [0.04, 0.24] | [-0.06, 0.32] |
+| TB 2.0, all (60 x 89) | 0.42 | [0.28, 0.55] | [0.26, 0.59] |
+| TB 2.0 without pass@1 < 0.1 | 0.30 | [0.20, 0.39] | [0.12, 0.47] |
+| TB 2.0 without changed tasks | 0.24 | [0.09, 0.37] | [0.07, 0.40] |
+| TB 2.0 without changed tasks and weak configurations | 0.12 | [0.01, 0.23] | [-0.10, 0.30] |
+| TB 2.0, relaxed selection (75 x 78) | 0.43 | [0.30, 0.55] | [0.24, 0.59] |
 
-- The **direction is stable** (stronger configurations have slightly higher ICC); the **size is not**: from 0.15 to 0.41 depending on broken tasks and weak points. A formula "ICC = 0.4 + 0.4 x pass@1" is not supported; it described one data set, not a regularity.
-- **Q5b (exploratory):** residual heterogeneity after accounting for pass@1: TB 4.0 p = 0.41, TB 2.0 p = 0.059; power was not assessed, so "not detected".
+- The **direction is stable** (stronger configurations have higher ICC); the **size is not**: from 0.12 to 0.43 depending on the changed tasks and weak configurations. A formula "ICC = 0.4 + 0.4 x pass@1" is not supported; it described one data set, not a regularity.
+- **Q5b (exploratory):** residual heterogeneity after accounting for pass@1: TB 4.0 p = 0.41, TB 2.0 p = 0.069 (was 0.059); power was not assessed, so "not detected".
 - **Exploratory check of the estimator:** with a constant ICC (0.45 or 0.6) the one-way ANOVA estimator is nearly unbiased across pass@1 from 0.1 to 0.8 (shift at most 0.015), so the slope is not an artefact of the estimator in that range.
 
 ## Power: how many tasks a benchmark needs (`results/power_table.json`)
@@ -93,7 +110,7 @@ Assumption: new tasks come from the same population; different task mixes change
 - **A cleaned score does not change the winner on TB 4.0.** Removing Epoch's defective tasks does not change who is best beyond noise. Claiming "the real leader is different" is not supported by these data.
 - **Reliability on repeats does not change the ranking either**, though it is interesting descriptively: at equal pass@1, pass^5 can differ by about 1.4 times. With 66 tasks this is not statistically distinguishable.
 - **Power is the main lesson.** With 66 tasks, the 95% interval for the difference between two models is about +-9.5 points on pass@1 and wider on pass^5. Any "honest leaderboard" on a single benchmark of this size will mostly show ties. Real resolution needs pooled benchmarks (several hundred tasks) or one's own task set.
-- **For the [Agent Reliability Calculator](https://anaexplores.github.io/agent-reliability-calculator/):** a constant ICC preset of about 0.5-0.6 is adequate. The dependence of ICC on pass@1 is weak and unstable, so the calculator should not introduce a formula for it.
+- **For the [Agent Reliability Calculator](https://anaexplores.github.io/agent-reliability-calculator/):** a constant ICC preset of about 0.5-0.6 is adequate. ICC rises with pass@1, but the size of that dependence is unstable (slope 0.12 to 0.43 across the checks above), so the calculator should not introduce a formula for it.
 
 ## Open questions
 
