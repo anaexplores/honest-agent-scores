@@ -1,0 +1,66 @@
+{
+ "observed_tasks": 66,
+ "trials_per_task": 5,
+ "pairs": 45,
+ "median_se_pass1_at_observed": 0.0485,
+ "median_se_pass^5_at_observed": 0.0545,
+ "assumption": "SE scales as sqrt(N_observed / N); new tasks drawn from the same population",
+ "table": [
+  {
+   "tasks": 50,
+   "pass1_tie_halfwidth_pp": 10.9,
+   "pass1_mdd80_pp": 15.6,
+   "pass^5_tie_halfwidth_pp": 12.3,
+   "pass^5_mdd80_pp": 17.5
+  },
+  {
+   "tasks": 66,
+   "pass1_tie_halfwidth_pp": 9.5,
+   "pass1_mdd80_pp": 13.6,
+   "pass^5_tie_halfwidth_pp": 10.7,
+   "pass^5_mdd80_pp": 15.3
+  },
+  {
+   "tasks": 100,
+   "pass1_tie_halfwidth_pp": 7.7,
+   "pass1_mdd80_pp": 11.0,
+   "pass^5_tie_halfwidth_pp": 8.7,
+   "pass^5_mdd80_pp": 12.4
+  },
+  {
+   "tasks": 150,
+   "pass1_tie_halfwidth_pp": 6.3,
+   "pass1_mdd80_pp": 9.0,
+   "pass^5_tie_halfwidth_pp": 7.1,
+   "pass^5_mdd80_pp": 10.1
+  },
+  {
+   "tasks": 200,
+   "pass1_tie_halfwidth_pp": 5.5,
+   "pass1_mdd80_pp": 7.8,
+   "pass^5_tie_halfwidth_pp": 6.1,
+   "pass^5_mdd80_pp": 8.8
+  },
+  {
+   "tasks": 300,
+   "pass1_tie_halfwidth_pp": 4.5,
+   "pass1_mdd80_pp": 6.4,
+   "pass^5_tie_halfwidth_pp": 5.0,
+   "pass^5_mdd80_pp": 7.2
+  },
+  {
+   "tasks": 500,
+   "pass1_tie_halfwidth_pp": 3.5,
+   "pass1_mdd80_pp": 4.9,
+   "pass^5_tie_halfwidth_pp": 3.9,
+   "pass^5_mdd80_pp": 5.5
+  },
+  {
+   "tasks": 1000,
+   "pass1_tie_halfwidth_pp": 2.4,
+   "pass1_mdd80_pp": 3.5,
+   "pass^5_tie_halfwidth_pp": 2.7,
+   "pass^5_mdd80_pp": 3.9
+  }
+ ]
+}

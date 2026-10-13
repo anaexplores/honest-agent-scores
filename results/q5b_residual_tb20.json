@@ -1,0 +1,12 @@
+{
+ "exploratory": true,
+ "n_configs": 63,
+ "fit_icc_vs_pass1": [
+  0.4085,
+  0.4056
+ ],
+ "resid_var_obs": 0.00615,
+ "null_median": 0.00416,
+ "null_p95": 0.00627,
+ "p": 0.059
+}

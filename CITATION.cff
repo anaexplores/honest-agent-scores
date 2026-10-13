@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite it as below."
+title: "Honest agent scores: do benchmark defects or repeats change which AI agent wins?"
+authors:
+  - alias: anaexplores
+type: software
+license: MIT
+repository-code: "https://github.com/anaexplores/honest-agent-scores"
+date-released: 2026-10-13
+keywords:
+  - AI agent evaluation
+  - benchmark defects
+  - pass^k
+  - reliability
+  - Terminal-Bench
+  - intraclass correlation
+  - statistical power

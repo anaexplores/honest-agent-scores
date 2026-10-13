@@ -1,0 +1,9 @@
+# Terminal-Bench 4.0 trials belong to their submitters (see DATA.md): fetch, do not commit
+data/tb40_trials.csv
+# Rebuilt from data/tb20_trials.csv by scripts/prep_tb20.py
+data/tb20_q5_trials.csv
+# Local tool settings
+.claude/
+__pycache__/
+*.pyc
+report/

@@ -1,0 +1,162 @@
+{
+ "TB4.0": {
+  "pass1>=0.0": {
+   "n": 10,
+   "n_tasks": 66,
+   "intercept": 0.384,
+   "slope": 0.38,
+   "slope_ci_by_configs": [
+    0.14,
+    0.635
+   ],
+   "slope_ci_by_tasks": [
+    0.114,
+    0.71
+   ],
+   "q5_p": 0.077
+  },
+  "pass1>=0.1": {
+   "n": 10,
+   "n_tasks": 66,
+   "intercept": 0.384,
+   "slope": 0.38,
+   "slope_ci_by_configs": [
+    0.14,
+    0.635
+   ],
+   "slope_ci_by_tasks": [
+    0.114,
+    0.71
+   ],
+   "q5_p": 0.077
+  }
+ },
+ "TB2.0 first5": {
+  "pass1>=0.0": {
+   "n": 63,
+   "n_tasks": 88,
+   "intercept": 0.409,
+   "slope": 0.406,
+   "slope_ci_by_configs": [
+    0.259,
+    0.543
+   ],
+   "slope_ci_by_tasks": [
+    0.26,
+    0.563
+   ],
+   "q5_p": 0.001
+  },
+  "pass1>=0.1": {
+   "n": 60,
+   "n_tasks": 88,
+   "intercept": 0.468,
+   "slope": 0.296,
+   "slope_ci_by_configs": [
+    0.193,
+    0.388
+   ],
+   "slope_ci_by_tasks": [
+    0.122,
+    0.517
+   ],
+   "q5_p": 0.0
+  }
+ },
+ "TB2.0 first5 without tasks changed in 2.1": {
+  "pass1>=0.0": {
+   "n": 63,
+   "n_tasks": 61,
+   "intercept": 0.43,
+   "slope": 0.25,
+   "slope_ci_by_configs": [
+    0.105,
+    0.383
+   ],
+   "slope_ci_by_tasks": [
+    0.074,
+    0.423
+   ],
+   "q5_p": 0.05
+  },
+  "pass1>=0.1": {
+   "n": 60,
+   "n_tasks": 61,
+   "intercept": 0.494,
+   "slope": 0.145,
+   "slope_ci_by_configs": [
+    0.043,
+    0.239
+   ],
+   "slope_ci_by_tasks": [
+    -0.055,
+    0.316
+   ],
+   "q5_p": 0.3005
+  }
+ },
+ "TB2.0 random5 seed1": {
+  "pass1>=0.0": {
+   "n": 63,
+   "n_tasks": 88,
+   "intercept": 0.439,
+   "slope": 0.356,
+   "slope_ci_by_configs": [
+    0.221,
+    0.461
+   ],
+   "slope_ci_by_tasks": [
+    0.21,
+    0.535
+   ],
+   "q5_p": 0.0055
+  },
+  "pass1>=0.1": {
+   "n": 60,
+   "n_tasks": 88,
+   "intercept": 0.492,
+   "slope": 0.257,
+   "slope_ci_by_configs": [
+    0.148,
+    0.362
+   ],
+   "slope_ci_by_tasks": [
+    0.09,
+    0.465
+   ],
+   "q5_p": 0.0005
+  }
+ },
+ "TB2.0 random5 seed2": {
+  "pass1>=0.0": {
+   "n": 63,
+   "n_tasks": 88,
+   "intercept": 0.437,
+   "slope": 0.36,
+   "slope_ci_by_configs": [
+    0.212,
+    0.479
+   ],
+   "slope_ci_by_tasks": [
+    0.209,
+    0.537
+   ],
+   "q5_p": 0.008
+  },
+  "pass1>=0.1": {
+   "n": 60,
+   "n_tasks": 88,
+   "intercept": 0.5,
+   "slope": 0.243,
+   "slope_ci_by_configs": [
+    0.133,
+    0.347
+   ],
+   "slope_ci_by_tasks": [
+    0.074,
+    0.463
+   ],
+   "q5_p": 0.0005
+  }
+ }
+}

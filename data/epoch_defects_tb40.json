@@ -1,0 +1,42 @@
+{
+ "source": "Epoch AI Benchmark Review, Terminal-Bench 4.0.0",
+ "url": "https://epoch.ai/benchmarks/terminal-bench-4/review",
+ "review_date": "2026-09-04",
+ "retrieved": "2026-10-12",
+ "verdict": "Flawed",
+ "note": "Partial review: the reviewers stopped once errors exceeded the Flawed threshold, so unlisted tasks are unreviewed, not clean. 10 defective tasks had pending fixes (not named).",
+ "false_positive": [
+  "batched-eval-parity",
+  "bun-sourcemap-leak",
+  "distributed-dedup",
+  "embedding-drift-monitor",
+  "freecad-impeller",
+  "freecad-spring-clip",
+  "interleaved-vigenere",
+  "jax-speedrun-gpu",
+  "ks-solver-cpp",
+  "math-eval-grader",
+  "mvcc-lsm-compaction",
+  "ontology-kg-querying",
+  "session-window-debug",
+  "sglang-qwen-burst",
+  "takens-embedding-lean",
+  "telecom-entity-resolution",
+  "vf2-speedup-networkx",
+  "vpp-loss-divergence",
+  "wal-recovery-ordering"
+ ],
+ "false_negative": [
+  "atrx-vep-crispr",
+  "cargo-flight-dispatch",
+  "cumulative-layout-shift",
+  "data-anonymization",
+  "foodstuff-beta-activity",
+  "freecad-platform-drawing",
+  "glycan-ms2-elucidation",
+  "gsea-proteomics",
+  "legacy-utility-triage",
+  "music-harmony",
+  "nextjs-performance"
+ ]
+}
