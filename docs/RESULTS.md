@@ -43,7 +43,7 @@ The rankings by pass^5 and by pass@1 nearly coincide; four pairs reverse, none s
 - **Exploratory:** Fable 5.1 and GPT-6.1 Sol are equal on pass@1 (0.579 vs 0.582) but differ on pass^5 (0.29 vs 0.39): -10.6 points, 95% CI [-22.7, +1.5], not significant. The planned criterion (reversed order) did not cover this "equal pass@1" case; that is a weakness of the design, noted by the internal review.
 - The units compared are model x harness x effort configurations (claude-code, codex, mini-swe-agent, muse-code), not models.
 
-## Q5. Does the repeat correlation differ between configurations beyond noise? (`results/q5_icc_*.json`, `results/icc_slope_sensitivity.json`, `results/q5_task_removal_control.json`)
+## Q5. Does the repeat correlation differ between configurations beyond noise? (`results/q5_icc_*.json`, `results/icc_slope_sensitivity.json`, `results/q5_task_removal_control.json`, `results/q5_task_removal_matched.json`)
 
 Null: each configuration keeps its own pass@1, one common ICC, beta-binomial trials.
 
@@ -72,8 +72,16 @@ The main test and its two robustness checks were planned and use 5,000 simulatio
 | all (60) | 0.055 | 0.013 [0.001, 0.065] | 9.5% |
 | without pass@1 < 0.1 (57) | 0.229 | 0.009 [0.000, 0.169] | 3.5% |
 
-  Removing the changed tasks weakens the differences more than removing most random sets of tasks, so these tasks carry much of the ICC heterogeneity. But they are also much **harder** than a random set (pooled success 0.29, against 0.39-0.52 for 90% of random sets), and no random draw matched their difficulty. Whether the effect comes from the tasks being broken or from their being hard cannot be told apart with these data.
-- **Hypothesis, not a finding:** broken tasks may create false "reliability differences" between configurations, because different agents pass or fail a defective task deterministically in different ways. A difficulty-matched control would be needed to test it. Auditing tasks before claiming that one agent is more reliable than another remains a sensible precaution.
+  Removing the changed tasks weakens the differences more than removing most random sets of tasks, so these tasks carry much of the ICC heterogeneity. But they are also much **harder** than a random set (pooled success 0.29, against 0.39-0.52 for 90% of random sets), and no random draw matched their difficulty, so this control alone cannot tell "broken" from "hard".
+- **Difficulty-matched control (exploratory, `scripts/q5_task_removal_matched.py`).** Each draw removes 28 unchanged tasks matched one-to-one to the changed tasks by pooled success (nearest unchanged task, without replacement, changed tasks visited in random order; 200 draws, 1,000 simulations each):
+
+| Configurations | p, changed tasks removed | p, matched 28 removed: median [5%, 95%] | Matched removals with p at least as large |
+|---|---|---|---|
+| all (60) | 0.055 | 0.000 [0.000, 0.002] | 0% |
+| without pass@1 < 0.1 (57) | 0.229 | 0.000 [0.000, 0.000] | 0% |
+
+  No matched removal gives p above 0.004, so removing equally hard unchanged tasks does not weaken the differences; if anything they get stronger than after removing random (easier) tasks. Difficulty alone therefore does not explain why the changed tasks carry the ICC heterogeneity. Limits: the unchanged tasks include few very hard ones, so the match is imperfect (pooled success 0.34 for the matched sets against 0.29 for the changed tasks; mean gap per pair 0.05) and nearly fixed (only 10 distinct sets in 200 draws; 26 of the 33 tasks used are in every set). The control was added after the result was seen.
+- **Still a hypothesis, now with supporting evidence:** broken tasks may create false "reliability differences" between configurations, because different agents pass or fail a defective task deterministically in different ways. The two controls show that the changed tasks carry the heterogeneity beyond their number and their difficulty; they do not show that the defects are the cause, since the changed tasks may differ from the others in other ways, and the analysis is exploratory. Auditing tasks before claiming that one agent is more reliable than another remains a sensible precaution.
 
 **Slope of ICC on pass@1** (bootstrap over configurations and over tasks):
 
