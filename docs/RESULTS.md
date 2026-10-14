@@ -37,7 +37,9 @@ All 10 configurations succeed **less** often on false-positive tasks than on unf
 
 ## Q4. Does reliability on repeats change the ranking? (`results/q4_repeats.json`)
 
-The rankings by pass^5 and by pass@1 nearly coincide; four pairs reverse, none significantly.
+The rankings by pass^5 and by pass@1 nearly coincide; two pairs reverse under pass^5 (Fable 5.1 / GPT-6 Sol and Gemini 3.7 Flash / Muse Spark 1.3), none significantly. Qwen 3.8 Max, Gemini 3.8 Flash and GPT-6 Luna are tied at pass^5 = 3/66, so their order in `rank_pass5` is a tie-break, not a reversal.
+
+**Correction (2026-10-14).** Earlier versions said "four pairs reverse". `reversed_pairs` lists four reversals across pass^3 and pass^5 together (two under each); Gemini 3.7 Flash / Muse Spark 1.3 appears under both, so there are three distinct pairs. None of them is significant, so the conclusion does not change.
 
 - The ratio pass^5 / pass@1 varies widely: Opus 5.5 0.72, GPT-6.1 Sol 0.68, GPT-6 Sol 0.61, Fable 5.1 0.50, GLM 5.3 Flash 0.34, Qwen 3.8 Max 0.17, Muse Spark 0.10.
 - **Exploratory:** Fable 5.1 and GPT-6.1 Sol are equal on pass@1 (0.579 vs 0.582) but differ on pass^5 (0.29 vs 0.39): -10.6 points, 95% CI [-22.7, +1.5], not significant. The planned criterion (reversed order) did not cover this "equal pass@1" case; that is a weakness of the design, noted by the internal review.
