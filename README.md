@@ -91,6 +91,14 @@ python reproduce.py           # everything, including TB 2.0, about 3 hours
 - **The TB 4.0 trials may disappear.** They stay on Harbor Hub and can become private; see [DATA.md](DATA.md).
 - **The analysis plan was not registered on an external platform**; it was fixed in the author's version history before each analysis (details in [docs/ANALYSIS_PLAN.md](docs/ANALYSIS_PLAN.md)).
 
+## Open questions
+
+Things I could not settle with the public data. If you have the data or an argument, open an issue or a discussion.
+
+- The Fable 5.1 vs GPT-6 Sol shift of 12.4 points without the defective tasks was found after seeing the data. Does it hold on later submissions of the same models, or after the 10 pending task fixes?
+- Trajectories of the false-positive tasks would show whether models exploit the defects. Does anyone have them?
+- The 28 tasks changed in Terminal-Bench 2.1 carry most of the ICC difference between configurations. Were they changed because they were broken, or because they were hard?
+
 ## Related
 
 - [Agent Reliability Calculator](https://github.com/anaexplores/agent-reliability-calculator) ([demo](https://anaexplores.github.io/agent-reliability-calculator/)) estimates how many retries an agent pipeline needs when retries are correlated. This study supports its constant ICC preset of about 0.5-0.6: ICC rises with pass@1, but the size of that dependence is unstable (slope from 0.12 to 0.43 depending on the changed tasks and weak configurations), so the calculator should not model ICC as a function of pass@1.
