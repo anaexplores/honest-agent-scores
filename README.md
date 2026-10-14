@@ -15,6 +15,10 @@ This repository is a reproducible check of two common claims in **AI agent evalu
 | Q5 | Do agents differ in how correlated their repeats are (ICC) beyond noise? | TB 4.0; TB 2.0 (60 configurations x 89 tasks; corrected 2026-10-13) | TB 4.0 p = 0.075. TB 2.0 **p = 0.0022: yes by the plan**, robust to trial choice, selection rule and dropping the weakest configurations. It weakens without the 28 tasks changed in TB 2.1 (p = 0.047; 0.25 if the weakest configurations are also dropped, one of four post-hoc combinations). Removing 28 unchanged tasks of matched difficulty does not weaken it (p <= 0.004 in all 200 draws), so difficulty alone does not explain it (the match is imperfect: pooled success 0.34 against 0.29). "Broken tasks create false reliability differences" is still an exploratory **hypothesis**, now with supporting evidence; the cause is not shown. |
 | Power | How large a difference can a benchmark resolve? | TB 4.0 pairs | With 66 tasks, pass@1 differences within about **+-9.5 points** are ties; about 500 tasks are needed to resolve 5 points (table below). |
 
+![Ranking of ten TB 4.0 configurations with and without defective tasks, and by pass@1 against pass^5: the order barely moves](figures/ranking_stability.png)
+
+![ICC per configuration against pass@1 on TB 4.0 and TB 2.0: no detectable spread on TB 4.0, a real spread on TB 2.0](figures/icc_heterogeneity.png)
+
 Exploratory results (chosen after seeing the data) are reported separately in [docs/RESULTS.md](docs/RESULTS.md), including one candidate pair whose order flips without the defective tasks (Fable 5.1 vs GPT-6 Sol, paired shift -12.4 points, 95% CI [-21.9, -3.8], no multiplicity correction).
 
 - Full results with all caveats: [docs/RESULTS.md](docs/RESULTS.md)
@@ -33,6 +37,8 @@ Median across the 45 pairs of TB 4.0 configurations; standard error scaled as sq
 | 200 | 5.5 | 7.8 | 6.1 |
 | 500 | 3.5 | 4.9 | 3.9 |
 | 1000 | 2.4 | 3.5 | 2.7 |
+
+![Tie zone and detectable difference in percentage points against the number of tasks, from 50 to 1000](figures/tasks_needed.png)
 
 Practical reading: on a leaderboard with about 66 tasks and 5 trials per task, two agents within 10 points of each other are not reliably ordered.
 
@@ -72,6 +78,7 @@ python reproduce.py           # everything, including TB 2.0, about 3 hours
 | `scripts/exploratory_checks.py` | TB 4.0 trials, defects | `results/exploratory_checks.json` | exploratory |
 | `scripts/power_table.py` | TB 4.0 trials | `results/power_table.json` | power |
 | `scripts/check_leaderboard.py` | any trials CSV | `report/` | your data |
+| `scripts/make_figures.py` | `results/*.json` | `figures/*.png` | README figures (needs matplotlib, optional) |
 
 ## Limitations
 
