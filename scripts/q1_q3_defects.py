@@ -84,7 +84,7 @@ def analyze(S, FP, FN):
     icc_all = median(icc_anova(S[m], tasks) for m in models)
     icc_cln = median(icc_anova(S[m], clean) for m in models)
     pooled = {t: sum(sum(S[m][t]) for m in models) / (5 * len(models)) for t in tasks}
-    target = sum(pooled[t] for t in FLAG) / len(FLAG)
+    target = sum(pooled[t] for t in sorted(FLAG)) / len(FLAG)  # sorted: set order varies between runs
     nd, tries = [], 0
     while len(nd) < N_NULL and tries < 200 * N_NULL:
         tries += 1
