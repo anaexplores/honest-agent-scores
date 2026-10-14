@@ -1,5 +1,7 @@
 # Honest agent scores
 
+[![DOI](https://img.shields.io/badge/DOI-10.6084%2Fm9.figshare.34515048-blue)](https://doi.org/10.6084/m9.figshare.34515048)
+
 **Do benchmark defects or repeated runs change which AI agent wins?** On 3,300 public Terminal-Bench 4.0 runs, mostly no: neither removing known defective tasks nor ranking by reliability on repeats (pass^k) changes the leader beyond noise. How correlated an agent's repeats are (ICC) does differ between configurations on Terminal-Bench 2.0, but much of that difference sits in the 28 tasks the benchmark later changed, and whether that is because they were broken or merely hard is open. A 66-task benchmark cannot resolve differences smaller than about 10 points.
 
 This repository is a reproducible check of two common claims in **AI agent evaluation** on public per-trial results from **Terminal-Bench**: that **benchmark defects** hide the true leader, and that measuring **reliability** with **pass^k** reorders agents. It also ships a small tool to run the same checks on your own leaderboard, and a table of how many tasks a benchmark needs to tell two agents apart. The result is negative and stated with its limitations.
