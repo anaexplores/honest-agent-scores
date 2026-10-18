@@ -11,7 +11,7 @@ Analysis plan: [ANALYSIS_PLAN.md](ANALYSIS_PLAN.md) (fixed before each analysis 
 - All 10 jobs use one task set (`dataset_version sha256:39d9f44b...`). That this is exactly the 4.0.0 version Epoch reviewed (2026-09-04) is a strong inference from the leaderboard and dates, not stated by a source.
 - 11 submissions were private on Harbor Hub and are not included; selection by public availability is possible.
 - 124 of 3,300 trials (3.8%) ended with an error, 49 of them timeouts; per leaderboard rules they count as 0, which penalises pass^5 more than pass@1.
-- The `attempt` field is 1 for every trial, so independence of repeats within a task cannot be checked.
+- The `attempt` field is 1 for every trial, most likely because the leaderboard keeps only the latest attempt of each trial, and its rules allow relaunching; how many trials were rerun cannot be seen in the data (see DATA.md and [the question to the maintainers](https://github.com/harbor-framework/terminal-bench/discussions/2273)).
 - Cross-check with an earlier ICC estimate on this benchmark: ICC for Fable 5.1 = 0.5074 and Gemini 3.8 Flash = 0.377, identical to four decimals.
 
 ## Q1. Do Epoch's defect flags change the ranking? (`results/q1_q3_defects.json`)

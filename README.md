@@ -87,7 +87,7 @@ python reproduce.py           # everything, including TB 2.0, about 3 hours
 - **Low power.** 10 configurations and 66 tasks. "No effect detected" is not "no effect": these tests cannot detect a change of one or two rank places.
 - **Partial defect list.** Epoch's review stopped once the error rate passed its threshold, so the 36 unflagged tasks are unreviewed, not known to be clean.
 - **Public submissions only.** 11 of 21 TB 4.0 submissions were private on Harbor Hub and are not included.
-- **Repeat independence cannot be checked.** The `attempt` field is 1 for every trial.
+- **Relaunched trials cannot be seen.** The `attempt` field is 1 for every trial, most likely because the leaderboard keeps only the latest attempt of each trial, and its rules allow relaunching. How many trials were rerun is not in the data ([question to the maintainers](https://github.com/harbor-framework/terminal-bench/discussions/2273)).
 - **Configurations, not models.** Each unit is a model with a specific harness and effort setting.
 - **Errored trials count as failures** (124 of 3,300), which penalises pass^5 more than pass@1.
 - **The TB 4.0 trials may disappear.** They stay on Harbor Hub and can become private; see [DATA.md](DATA.md).
